@@ -1,0 +1,288 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgyvmvlqyjf61"]
+
+[ext_resource type="Script" path="res://scripts/2d.gd" id="1_ac2w2"]
+[ext_resource type="Script" path="res://scripts/gravity.gd" id="2_dlq3r"]
+[ext_resource type="Script" path="res://scripts/drag.gd" id="3_5ia68"]
+[ext_resource type="Script" path="res://scripts/particle_collision.gd" id="4_1m22x"]
+[ext_resource type="Script" path="res://scripts/bounds.gd" id="4_4n6cj"]
+[ext_resource type="Script" path="res://scripts/time_info.gd" id="5_yc0h6"]
+[ext_resource type="Script" path="res://scripts/vel_acc_arrow_button.gd" id="6_jo01r"]
+[ext_resource type="Script" path="res://scripts/textfields.gd" id="7_dmld7"]
+[ext_resource type="Script" path="res://scripts/forces_column.gd" id="8_xnyis"]
+
+[node name="2D" type="Node2D"]
+script = ExtResource("1_ac2w2")
+
+[node name="TimeStepper" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="Particles" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Gravity" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_dlq3r")
+
+[node name="Drag" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_5ia68")
+
+[node name="ParticleCollision" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_1m22x")
+
+[node name="Bounds" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_4n6cj")
+
+[node name="Floor" type="ColorRect" parent="Bounds"]
+offset_left = 202.0
+offset_top = 605.0
+offset_right = 956.0
+offset_bottom = 648.0
+
+[node name="WallL" type="ColorRect" parent="Bounds"]
+offset_left = 162.0
+offset_top = 250.0
+offset_right = 202.0
+offset_bottom = 648.0
+
+[node name="WallR" type="ColorRect" parent="Bounds"]
+offset_left = 954.0
+offset_top = 250.0
+offset_right = 994.0
+offset_bottom = 648.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PauseButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+offset_left = 1013.0
+offset_top = 5.0
+offset_right = 1068.0
+offset_bottom = 36.0
+toggle_mode = true
+text = "Pause"
+
+[node name="StepBackButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+offset_left = 992.0
+offset_top = 5.0
+offset_right = 1010.0
+offset_bottom = 36.0
+text = "<"
+
+[node name="StepForwardButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+offset_left = 1071.0
+offset_top = 5.0
+offset_right = 1089.0
+offset_bottom = 36.0
+text = ">"
+
+[node name="Leave" type="Button" parent="UI"]
+unique_name_in_owner = true
+offset_left = 1110.0
+offset_top = 5.0
+offset_right = 1147.0
+offset_bottom = 36.0
+text = "Exit"
+
+[node name="VelAccArrowButton" type="Button" parent="UI"]
+unique_name_in_owner = true
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 120.0
+offset_bottom = 42.0
+toggle_mode = true
+text = "Show Arrows"
+script = ExtResource("6_jo01r")
+
+[node name="TimeInfo" type="Label" parent="UI"]
+offset_left = 977.0
+offset_top = 45.0
+offset_right = 1115.0
+offset_bottom = 107.0
+script = ExtResource("5_yc0h6")
+
+[node name="ParticleInformation" type="Label" parent="UI"]
+unique_name_in_owner = true
+offset_left = 20.0
+offset_top = 7.0
+offset_right = 201.0
+offset_bottom = 160.0
+text = "Position: 
+Velocity:
+Acceleration:
+Force:
+Mass:
+Radius:"
+horizontal_alignment = 2
+
+[node name="Textfields" type="Control" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_dmld7")
+
+[node name="Row" type="HBoxContainer" parent="UI/Textfields"]
+layout_mode = 0
+offset_left = 202.0
+offset_top = 8.0
+offset_right = 340.0
+offset_bottom = 214.0
+scale = Vector2(0.75, 0.75)
+
+[node name="Column1" type="VBoxContainer" parent="UI/Textfields/Row"]
+layout_mode = 2
+
+[node name="PosX" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="VelX" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="AccX" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="ForceX" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="Mass" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="Radius" type="LineEdit" parent="UI/Textfields/Row/Column1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="Column2" type="VBoxContainer" parent="UI/Textfields/Row"]
+layout_mode = 2
+
+[node name="PosY" type="LineEdit" parent="UI/Textfields/Row/Column2"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="VelY" type="LineEdit" parent="UI/Textfields/Row/Column2"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="AccY" type="LineEdit" parent="UI/Textfields/Row/Column2"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="ForceY" type="LineEdit" parent="UI/Textfields/Row/Column2"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="ForcesInformation" type="Label" parent="UI"]
+offset_left = 311.0
+offset_top = 9.0
+offset_right = 387.0
+offset_bottom = 132.0
+text = "Gravity:
+Drag:
+S-Resti:
+P-Resti:"
+horizontal_alignment = 2
+
+[node name="ForcesColumn" type="VBoxContainer" parent="UI"]
+unique_name_in_owner = true
+offset_left = 390.0
+offset_top = 9.0
+offset_right = 512.0
+offset_bottom = 145.0
+scale = Vector2(0.75, 0.75)
+script = ExtResource("8_xnyis")
+
+[node name="Row1" type="HBoxContainer" parent="UI/ForcesColumn"]
+layout_mode = 2
+
+[node name="GravityField" type="LineEdit" parent="UI/ForcesColumn/Row1"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="GravityReset" type="Button" parent="UI/ForcesColumn/Row1"]
+layout_mode = 2
+text = "Reset"
+
+[node name="Row2" type="HBoxContainer" parent="UI/ForcesColumn"]
+layout_mode = 2
+
+[node name="DragField" type="LineEdit" parent="UI/ForcesColumn/Row2"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="DragReset" type="Button" parent="UI/ForcesColumn/Row2"]
+layout_mode = 2
+text = "Reset"
+
+[node name="Row3" type="HBoxContainer" parent="UI/ForcesColumn"]
+layout_mode = 2
+
+[node name="SolidRestitution" type="LineEdit" parent="UI/ForcesColumn/Row3"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="SRestitutionReset" type="Button" parent="UI/ForcesColumn/Row3"]
+layout_mode = 2
+text = "Reset"
+
+[node name="Row4" type="HBoxContainer" parent="UI/ForcesColumn"]
+layout_mode = 2
+
+[node name="PartRestitution" type="LineEdit" parent="UI/ForcesColumn/Row4"]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="PartRestitutionReset" type="Button" parent="UI/ForcesColumn/Row4"]
+layout_mode = 2
+text = "Reset"
+
+[connection signal="timeout" from="TimeStepper" to="." method="_on_time_stepper_timeout"]
+[connection signal="toggled" from="UI/PauseButton" to="." method="_on_pause_button_toggled"]
+[connection signal="toggled" from="UI/PauseButton" to="UI/Textfields" method="_on_pause_button_toggled"]
+[connection signal="toggled" from="UI/PauseButton" to="UI/ForcesColumn" method="_on_pause_button_toggled"]
+[connection signal="pressed" from="UI/StepBackButton" to="." method="_on_step_back_button_pressed"]
+[connection signal="pressed" from="UI/StepForwardButton" to="." method="_on_step_forward_button_pressed"]
+[connection signal="pressed" from="UI/Leave" to="." method="_on_leave_pressed"]
+[connection signal="toggled" from="UI/VelAccArrowButton" to="UI/VelAccArrowButton" method="_on_toggled"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/PosX" to="UI/Textfields" method="_on_pos_x_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/VelX" to="UI/Textfields" method="_on_vel_x_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/AccX" to="UI/Textfields" method="_on_acc_x_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/ForceX" to="UI/Textfields" method="_on_force_x_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/Mass" to="UI/Textfields" method="_on_mass_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column1/Radius" to="UI/Textfields" method="_on_radius_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column2/PosY" to="UI/Textfields" method="_on_pos_y_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column2/VelY" to="UI/Textfields" method="_on_vel_y_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column2/AccY" to="UI/Textfields" method="_on_acc_y_text_submitted"]
+[connection signal="text_submitted" from="UI/Textfields/Row/Column2/ForceY" to="UI/Textfields" method="_on_force_y_text_submitted"]
+[connection signal="text_submitted" from="UI/ForcesColumn/Row1/GravityField" to="UI/ForcesColumn" method="_on_gravity_field_text_submitted"]
+[connection signal="pressed" from="UI/ForcesColumn/Row1/GravityReset" to="UI/ForcesColumn" method="_on_gravity_reset_pressed"]
+[connection signal="text_submitted" from="UI/ForcesColumn/Row2/DragField" to="UI/ForcesColumn" method="_on_drag_field_text_submitted"]
+[connection signal="pressed" from="UI/ForcesColumn/Row2/DragReset" to="UI/ForcesColumn" method="_on_drag_reset_pressed"]
+[connection signal="text_submitted" from="UI/ForcesColumn/Row3/SolidRestitution" to="UI/ForcesColumn" method="_on_solid_restitution_text_submitted"]
+[connection signal="pressed" from="UI/ForcesColumn/Row3/SRestitutionReset" to="UI/ForcesColumn" method="_on_s_restitution_reset_pressed"]
+[connection signal="text_submitted" from="UI/ForcesColumn/Row4/PartRestitution" to="UI/ForcesColumn" method="_on_part_restitution_text_submitted"]
+[connection signal="pressed" from="UI/ForcesColumn/Row4/PartRestitutionReset" to="UI/ForcesColumn" method="_on_part_restitution_reset_pressed"]

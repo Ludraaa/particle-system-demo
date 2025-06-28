@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvihai0d6mns8"]
+
+[ext_resource type="Script" path="res://scripts/2d_particle.gd" id="1_5aomx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vppre"]
+radius = 0.01
+
+[node name="2DParticle" type="Node2D"]
+script = ExtResource("1_5aomx")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_vppre")
+
+[connection signal="draw" from="." to="." method="_on_draw"]
+[connection signal="mouse_entered" from="Hitbox" to="." method="_on_hitbox_mouse_entered"]
+[connection signal="mouse_exited" from="Hitbox" to="." method="_on_hitbox_mouse_exited"]

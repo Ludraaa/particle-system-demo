@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgyvmvlqyjf61"]
+
+[ext_resource type="Script" path="res://scripts/2d.gd" id="1_ac2w2"]
+[ext_resource type="Script" path="res://scripts/gravity.gd" id="2_dlq3r"]
+[ext_resource type="Script" path="res://scripts/drag.gd" id="3_5ia68"]
+[ext_resource type="Script" path="res://scripts/bounds.gd" id="4_4n6cj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fexra"]
+size = Vector2(709, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xmcv"]
+size = Vector2(39, 378)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7b8lq"]
+size = Vector2(169.547, 39.5882)
+
+[node name="2D" type="Node2D"]
+script = ExtResource("1_ac2w2")
+
+[node name="TimeStepper" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Particles" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Gravity" type="Node2D" parent="."]
+script = ExtResource("2_dlq3r")
+
+[node name="Drag" type="Node2D" parent="."]
+script = ExtResource("3_5ia68")
+
+[node name="Bounds" type="Node2D" parent="."]
+script = ExtResource("4_4n6cj")
+
+[node name="Floor" type="ColorRect" parent="Bounds"]
+offset_left = 202.0
+offset_top = 605.0
+offset_right = 956.0
+offset_bottom = 648.0
+
+[node name="Wall_l" type="ColorRect" parent="Bounds"]
+offset_left = 202.0
+offset_top = 271.0
+offset_right = 242.0
+offset_bottom = 607.0
+
+[node name="Collisions" type="Area2D" parent="Bounds"]
+position = Vector2(0, 605)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Collisions"]
+position = Vector2(576.5, 10)
+shape = SubResource("RectangleShape2D_fexra")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds/Collisions"]
+position = Vector2(222.5, -145)
+shape = SubResource("RectangleShape2D_4xmcv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Bounds/Collisions"]
+position = Vector2(937, -222)
+shape = SubResource("RectangleShape2D_4xmcv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Bounds/Collisions"]
+position = Vector2(168.056, -378.291)
+rotation = 0.798328
+shape = SubResource("RectangleShape2D_7b8lq")
+
+[node name="Wall_r" type="ColorRect" parent="Bounds"]
+offset_left = 917.0
+offset_top = 121.0
+offset_right = 957.0
+offset_bottom = 626.0
+
+[node name="Ramp" type="ColorRect" parent="Bounds"]
+offset_left = 122.0
+offset_top = 152.0
+offset_right = 292.0
+offset_bottom = 192.0
+rotation = 0.785398
+
+[connection signal="timeout" from="TimeStepper" to="." method="_on_time_stepper_timeout"]
+[connection signal="area_shape_entered" from="Bounds/Collisions" to="Bounds" method="_on_bounds_area_shape_entered"]
